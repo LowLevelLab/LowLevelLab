@@ -3,7 +3,7 @@
   import { fade, fly } from "svelte/transition";
   import { Terminal, Code, Star, GitFork, User, X, Book, Mail } from "lucide-svelte";
   import { getContributors } from "../github.js";
-  import logoImg from "../assets/LowLevelLab (1).webp";
+  import logoImg from "../assets/lowlevellab.webp";
 
   let { data } = $props();
 
