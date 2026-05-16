@@ -50,20 +50,8 @@ export async function fetchGithub(endpoint) {
   return data;
 }
 
-let projectsCache = null;
-let projectsCacheTime = 0;
-const CACHE_TTL = 5 * 60 * 1000; // 5 minutes cache for projects
-
-export async function getProjects() {
-  const now = Date.now();
-  if (projectsCache && (now - projectsCacheTime < CACHE_TTL)) {
-    return projectsCache;
-  }
-  
-  const data = await fetchGithub('/orgs/LowLevelLab/repos?type=public&sort=stargazers');
-  projectsCache = data;
-  projectsCacheTime = now;
-  return data;
+export function getProjects() {
+  return fetchGithub('/orgs/LowLevelLab/repos?type=public&sort=stargazers');
 }
 
 export function getOrgInfo() {
