@@ -35,19 +35,32 @@ export async function fetchGithub(endpoint) {
     ? endpoint
     : `https://api.github.com${endpoint}`;
 
-  const token = nextToken();
-  const headers = { Accept: 'application/vnd.github+json' };
-  if (token) headers.Authorization = `Bearer ${token}`;
+  let attempts = 0;
+  const maxAttempts = _tokens.length > 0 ? _tokens.length : 1;
 
-  const res = await fetch(url, { headers });
+  while (attempts < maxAttempts) {
+    const token = nextToken();
+    const headers = { Accept: 'application/vnd.github+json' };
+    if (token) headers.Authorization = `Bearer ${token}`;
 
-  if (!res.ok) {
-    const msg = await githubErrorMessage(res);
-    throw new Error(`GitHub ${res.status}: ${msg}`);
+    const res = await fetch(url, { headers });
+
+    if (!res.ok) {
+      // If unauthorized (bad token) or rate limited, try the next token
+      if ((res.status === 401 || res.status === 403 || res.status === 429) && _tokens.length > 1) {
+        attempts++;
+        continue; // Try again with the next token
+      }
+      
+      const msg = await githubErrorMessage(res);
+      throw new Error(`GitHub ${res.status}: ${msg}`);
+    }
+
+    const data = await res.json();
+    return data;
   }
 
-  const data = await res.json();
-  return data;
+  throw new Error('All GitHub tokens failed or rate limited.');
 }
 
 export function getProjects() {
