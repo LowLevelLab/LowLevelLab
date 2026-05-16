@@ -16,24 +16,7 @@ function nextToken() {
   return t;
 }
 
-const cache = new Map();
-const CACHE_TTL = 5 * 60 * 1000;
-
-function getCached(key) {
-  const hit = cache.get(key);
-  if (!hit) return null;
-  if (Date.now() - hit.at > CACHE_TTL) {
-    cache.delete(key);
-    return null;
-  }
-  return hit.data;
-}
-
-function setCached(key, data) {
-  cache.set(key, { data, at: Date.now() });
-}
-
-// Removed rate limit utility functions
+// No caching for data freshness
 
 // Reads the GitHub error body and returns a useful message string.
 async function githubErrorMessage(res) {
@@ -48,9 +31,6 @@ async function githubErrorMessage(res) {
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 export async function fetchGithub(endpoint) {
-  const cached = getCached(endpoint);
-  if (cached) return cached;
-
   const url = endpoint.startsWith('http')
     ? endpoint
     : `https://api.github.com${endpoint}`;
@@ -67,7 +47,6 @@ export async function fetchGithub(endpoint) {
   }
 
   const data = await res.json();
-  setCached(endpoint, data);
   return data;
 }
 
