@@ -23,7 +23,10 @@ async function getCachedData(key, fetcher, ttlSec = 600) {
   try {
     // 1. Try to get data from Redis
     const cacheRes = await fetch(`${UPSTASH_REDIS_REST_URL}/get/${key}`, {
-      headers: { Authorization: `Bearer ${UPSTASH_REDIS_REST_TOKEN}` }
+      headers: {
+        Authorization: `Bearer ${UPSTASH_REDIS_REST_TOKEN}`,
+        'Content-Type': 'application/json'
+      }
     });
     const cacheData = await cacheRes.json();
     
@@ -44,7 +47,10 @@ async function getCachedData(key, fetcher, ttlSec = 600) {
     // 3. Save fresh data back to Redis with expiration timer (EX = seconds)
     await fetch(`${UPSTASH_REDIS_REST_URL}/set/${key}?EX=${ttlSec}`, {
       method: 'POST',
-      headers: { Authorization: `Bearer ${UPSTASH_REDIS_REST_TOKEN}` },
+      headers: {
+        Authorization: `Bearer ${UPSTASH_REDIS_REST_TOKEN}`,
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify(freshData)
     });
     console.log(`[Cache Set] ${key} saved to Redis for ${ttlSec}s`);
