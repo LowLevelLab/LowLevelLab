@@ -2,7 +2,6 @@
   import { onMount } from "svelte";
   import { fade, fly } from "svelte/transition";
   import { Terminal, Code, Star, GitFork, User, X, Book, Mail } from "lucide-svelte";
-  import { getContributors } from "../github.js";
   import logoImg from "../assets/lowlevellab.webp";
 
   let { data } = $props();
@@ -19,7 +18,8 @@
     selectedProject = project;
     loadingContributors = true;
     projectContributors = [];
-    getContributors(project.contributors_url)
+    fetch(`/api/contributors/${project.name}`)
+      .then((res) => res.json())
       .then((data) => {
         projectContributors = Array.isArray(data) ? data.slice(0, 15) : [];
       })
