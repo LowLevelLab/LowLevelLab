@@ -22,7 +22,7 @@ export function Hero({ orgInfo }: { orgInfo: OrgInfo | null }) {
       const targetY = element.getBoundingClientRect().top + window.scrollY - 70;
       const startY = window.scrollY;
 
-      // Dispatch click event to trigger Team section stagger animations
+
       window.dispatchEvent(new CustomEvent("btn-click-scroll", { detail: { sectionId: id } }));
 
       animate(startY, targetY, {
@@ -38,7 +38,7 @@ export function Hero({ orgInfo }: { orgInfo: OrgInfo | null }) {
   return (
     <section ref={ref} className="relative min-h-screen flex items-center justify-center overflow-hidden matrix-bg">
       <motion.div style={{ opacity, y }} className="relative z-10 flex flex-col items-center text-center px-6">
-        {/* Massive title like NextTechLab */}
+
         <motion.h1
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}

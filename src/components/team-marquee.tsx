@@ -27,18 +27,17 @@ export function TeamMarquee({ members }: { members: Member[] }) {
   const [loading, setLoading] = useState(false);
   const controls = useAnimation();
 
-  // Set default state to visible (no entry animations when scrolling)
   useEffect(() => {
     controls.set("visible");
   }, [controls]);
 
-  // Trigger cascade animation ONLY when clicking navigation buttons
+
   useEffect(() => {
     const handleScrollEvent = (e: Event) => {
       const detail = (e as CustomEvent).detail;
       if (detail && detail.sectionId === "team") {
         controls.set("hidden");
-        // Delay slightly for smooth coordination with the scroll
+
         setTimeout(() => {
           controls.start("visible");
         }, 250);
@@ -58,7 +57,7 @@ export function TeamMarquee({ members }: { members: Member[] }) {
         setDetails(await res.json());
       }
     } catch {
-      // silently fail, modal still shows basic info
+
     } finally {
       setLoading(false);
     }
@@ -69,7 +68,6 @@ export function TeamMarquee({ members }: { members: Member[] }) {
     setDetails(null);
   }, []);
 
-  // Close on Escape
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === "Escape") close();
@@ -178,7 +176,7 @@ export function TeamMarquee({ members }: { members: Member[] }) {
         </div>
       </section>
 
-      {/* Profile Modal */}
+
       <AnimatePresence>
         {selected && (
           <motion.div
@@ -189,10 +187,10 @@ export function TeamMarquee({ members }: { members: Member[] }) {
             className="fixed inset-0 z-[100] flex items-center justify-center p-4"
             onClick={close}
           >
-            {/* Backdrop */}
+
             <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
 
-            {/* Modal */}
+
             <motion.div
               initial={{ opacity: 0, scale: 0.92, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -201,7 +199,7 @@ export function TeamMarquee({ members }: { members: Member[] }) {
               onClick={(e) => e.stopPropagation()}
               className="relative w-full max-w-sm bg-neutral-950 border border-neutral-800 p-8 z-10"
             >
-              {/* Close button */}
+
               <button
                 onClick={close}
                 className="absolute top-4 right-4 text-neutral-500 hover:text-white transition-colors"
@@ -217,7 +215,7 @@ export function TeamMarquee({ members }: { members: Member[] }) {
                 </svg>
               </button>
 
-              {/* Avatar */}
+
               <div className="flex flex-col items-center text-center">
                 <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-neutral-700 mb-5">
                   <img
@@ -227,7 +225,7 @@ export function TeamMarquee({ members }: { members: Member[] }) {
                   />
                 </div>
 
-                {/* Name & Username */}
+
                 <h3 className="text-xl font-bold text-white tracking-tight">
                   {loading ? selected.login : details?.name || selected.login}
                 </h3>
@@ -237,7 +235,7 @@ export function TeamMarquee({ members }: { members: Member[] }) {
                   </p>
                 )}
 
-                {/* Bio */}
+
                 <div className="mt-4 min-h-[2.5rem]">
                   {loading ? (
                     <div className="flex items-center justify-center gap-1.5">
@@ -284,7 +282,7 @@ export function TeamMarquee({ members }: { members: Member[] }) {
                   </div>
                 )}
 
-                {/* GitHub Link */}
+
                 <a
                   href={selected.html_url}
                   target="_blank"

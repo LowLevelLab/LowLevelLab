@@ -6,7 +6,7 @@ export function Footer() {
     <footer className="border-t border-neutral-800 bg-neutral-950 pt-20 pb-10 mt-20 text-[14px]">
       <div className="max-w-[1400px] mx-auto px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 lg:gap-24 mb-16">
-          {/* Logo & Branding Column */}
+
           <div className="col-span-1 md:col-span-2 flex flex-col items-start">
             <Link href="/" className="flex items-center gap-3 mb-6">
               <Logo className="w-12 h-12" />
@@ -23,14 +23,14 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Social Links Column */}
+
           <div className="flex flex-col">
             <h4 className="text-white font-semibold mb-6 tracking-wide text-[13px] uppercase">
               Social
             </h4>
             <div className="flex flex-col gap-4">
               <a
-                href="https://discord.gg/"
+                href="https://discord.gg/ahPdzRWDJ"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 text-neutral-400 hover:text-white transition-colors"
@@ -52,7 +52,7 @@ export function Footer() {
                 GitHub
               </a>
               <a
-                href="https://x.com/"
+                href="https://x.com/LowLevelLab"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 text-neutral-400 hover:text-white transition-colors"
@@ -63,7 +63,7 @@ export function Footer() {
                 X.com
               </a>
               <a
-                href="mailto:sharmamagi0@gmail.com"
+                href="mailto:lowlevellabs2@gmail.com"
                 className="flex items-center gap-3 text-neutral-400 hover:text-white transition-colors"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -74,7 +74,7 @@ export function Footer() {
               </a>
             </div>
           </div>
-          
+
 
 
         </div>
