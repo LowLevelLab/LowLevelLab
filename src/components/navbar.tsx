@@ -23,7 +23,6 @@ export function Navbar() {
         const targetY = element.getBoundingClientRect().top + window.scrollY - 70;
         const startY = window.scrollY;
 
-        // Dispatch click event to target sections to trigger their animations
         window.dispatchEvent(new CustomEvent("btn-click-scroll", { detail: { sectionId: targetId } }));
 
         animate(startY, targetY, {
@@ -52,9 +51,8 @@ export function Navbar() {
                 key={href}
                 href={href}
                 onClick={(e) => handleScrollClick(e, href, id)}
-                className={`relative text-[15px] font-light tracking-wide transition-colors ${
-                  active ? "text-white" : "text-neutral-400 hover:text-white"
-                }`}
+                className={`relative text-[15px] font-light tracking-wide transition-colors ${active ? "text-white" : "text-neutral-400 hover:text-white"
+                  }`}
               >
                 {label}
                 {active && (

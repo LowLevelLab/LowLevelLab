@@ -18,7 +18,7 @@ interface Repo {
   updated_at?: string;
 }
 
-// GitHub repo icon (octicon)
+
 function RepoIcon({ className }: { className?: string }) {
   return (
     <svg
@@ -33,7 +33,7 @@ function RepoIcon({ className }: { className?: string }) {
   );
 }
 
-// GitHub logo
+
 function GitHubLogo() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -42,7 +42,7 @@ function GitHubLogo() {
   );
 }
 
-// Language color mapping
+
 const langColors: Record<string, string> = {
   TypeScript: "#3178c6",
   JavaScript: "#f1e05a",
@@ -63,18 +63,17 @@ export function Projects({ projects }: { projects: Repo[] }) {
   const [selected, setSelected] = useState<Repo | null>(null);
   const controls = useAnimation();
 
-  // Set default state to visible (no entry animations when scrolling)
   useEffect(() => {
     controls.set("visible");
   }, [controls]);
 
-  // Trigger cascade animation ONLY when clicking navigation buttons
+
   useEffect(() => {
     const handleScrollEvent = (e: Event) => {
       const detail = (e as CustomEvent).detail;
       if (detail && detail.sectionId === "projects") {
         controls.set("hidden");
-        // Delay slightly for smooth coordination with the scroll
+
         setTimeout(() => {
           controls.start("visible");
         }, 250);
@@ -215,7 +214,7 @@ export function Projects({ projects }: { projects: Repo[] }) {
         </div>
       </section>
 
-      {/* Project Detail Modal */}
+
       <AnimatePresence>
         {selected && (
           <motion.div
@@ -226,7 +225,7 @@ export function Projects({ projects }: { projects: Repo[] }) {
             className="fixed inset-0 z-[100] flex items-center justify-center p-4"
             onClick={close}
           >
-            {/* Backdrop */}
+
             <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
 
             {/* Modal */}
@@ -238,7 +237,7 @@ export function Projects({ projects }: { projects: Repo[] }) {
               onClick={(e) => e.stopPropagation()}
               className="relative w-full max-w-md bg-neutral-950 border border-neutral-800 p-8 z-10"
             >
-              {/* Close button */}
+
               <button
                 onClick={close}
                 className="absolute top-4 right-4 text-neutral-500 hover:text-white transition-colors"
@@ -254,7 +253,7 @@ export function Projects({ projects }: { projects: Repo[] }) {
                 </svg>
               </button>
 
-              {/* Repo icon + name */}
+
               <div className="flex items-center gap-3 mb-5">
                 <RepoIcon className="text-neutral-400 flex-shrink-0" />
                 <h3 className="text-xl font-bold text-white tracking-tight">
@@ -262,12 +261,12 @@ export function Projects({ projects }: { projects: Repo[] }) {
                 </h3>
               </div>
 
-              {/* Description */}
+
               <p className="text-[14px] text-neutral-400 font-light leading-relaxed mb-6">
                 {selected.description || "No description provided."}
               </p>
 
-              {/* Topics */}
+
               {selected.topics && selected.topics.length > 0 && (
                 <div className="flex flex-wrap gap-2 mb-6">
                   {selected.topics.map((topic) => (
@@ -281,7 +280,7 @@ export function Projects({ projects }: { projects: Repo[] }) {
                 </div>
               )}
 
-              {/* Stats row */}
+
               <div className="flex items-center gap-6 py-5 border-y border-neutral-800">
                 {selected.language && (
                   <div className="flex items-center gap-1.5">
@@ -327,7 +326,7 @@ export function Projects({ projects }: { projects: Repo[] }) {
                 </div>
               </div>
 
-              {/* GitHub link */}
+
               <a
                 href={selected.html_url}
                 target="_blank"
