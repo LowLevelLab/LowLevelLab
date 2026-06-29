@@ -4,12 +4,6 @@ The official website for **Low Level Labs**, an open-source collective building 
 
 This website is built with **Next.js**, **React**, **TypeScript**, **Tailwind CSS**, and **Motion** (Framer Motion). It dynamically fetches information about the organization, projects, and contributors directly from the GitHub API.
 
-## Features
-
-- **Dynamic Projects**: Automatically fetches public repositories from the LowLevelLab GitHub organization.
-- **Team Directory**: Lists members and contributors from the organization.
-- **Fluid Experience**: Smooth scroll animations with Lenis scroll integration and custom micro-animations powered by Framer Motion.
-- **Next.js & Turbopack**: High-performance, SEO-friendly, and modern development server.
 
 ## Getting Started
 
@@ -54,11 +48,4 @@ To prevent rate limiting when calling the GitHub API, you can add GitHub Persona
 PAT_1=your_github_token_here
 ```
 
-## Deployment on Vercel
 
-This project is fully ready for deployment on Vercel:
-
-1. Import your repository into Vercel.
-2. The framework will be automatically detected as Next.js.
-3. Configure environment variables (like `PAT_1` if needed).
-4. Deploy!
