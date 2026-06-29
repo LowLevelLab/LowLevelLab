@@ -30,7 +30,7 @@ export function Footer() {
             </h4>
             <div className="flex flex-col gap-4">
               <a
-                href="https://discord.gg/e4zqRPHJDe"
+                href="https://discord.gg/v7PmFhyZhW"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 text-neutral-400 hover:text-white transition-colors"
