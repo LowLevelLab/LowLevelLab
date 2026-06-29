@@ -53,11 +53,12 @@ export function TeamMarquee({ members }: { members: Member[] }) {
     setLoading(true);
     try {
       const res = await fetch(`/api/github/user/${member.login}`);
-      if (res.ok) {
-        setDetails(await res.json());
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
       }
-    } catch {
-
+      setDetails(await res.json());
+    } catch (error) {
+      console.error(error);
     } finally {
       setLoading(false);
     }

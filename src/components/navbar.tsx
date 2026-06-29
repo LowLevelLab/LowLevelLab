@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Logo } from "./logo";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { animate } from "motion/react";
 
 const links = [
@@ -14,6 +14,27 @@ const links = [
 export function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: "-80px 0px -80% 0px" }
+    );
+
+    links.forEach(({ id }) => {
+      const element = document.getElementById(id);
+      if (element) observer.observe(element);
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   const handleScrollClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string, targetId: string) => {
     if (pathname === "/" && href.startsWith("/#")) {
@@ -22,6 +43,9 @@ export function Navbar() {
       if (element) {
         const targetY = element.getBoundingClientRect().top + window.scrollY - 70;
         const startY = window.scrollY;
+
+        window.history.replaceState(null, "", href);
+        setActiveSection(targetId);
 
         window.dispatchEvent(new CustomEvent("btn-click-scroll", { detail: { sectionId: targetId } }));
 
@@ -45,7 +69,7 @@ export function Navbar() {
 
         <nav className="hidden md:flex items-center gap-8">
           {links.map(({ href, label, id }) => {
-            const active = pathname === href;
+            const active = activeSection === id;
             return (
               <Link
                 key={href}
