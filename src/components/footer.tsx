@@ -6,7 +6,6 @@ export function Footer() {
     <footer className="border-t border-neutral-800 bg-neutral-950 pt-20 pb-10 mt-20 text-[14px]">
       <div className="max-w-[1400px] mx-auto px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 lg:gap-24 mb-16">
-
           <div className="col-span-1 md:col-span-2 flex flex-col items-start">
             <Link href="/" className="flex items-center gap-3 mb-6">
               <Logo className="w-12 h-12" />
@@ -22,7 +21,6 @@ export function Footer() {
               <span>Copyright © {new Date().getFullYear()} LowLevelLabs</span>
             </div>
           </div>
-
 
           <div className="flex flex-col">
             <h4 className="text-white font-semibold mb-6 tracking-wide text-[13px] uppercase">
@@ -66,7 +64,16 @@ export function Footer() {
                 href="mailto:lowlevellabs2@gmail.com"
                 className="flex items-center gap-3 text-neutral-400 hover:text-white transition-colors"
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <rect width="20" height="16" x="2" y="4" rx="2" />
                   <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
                 </svg>
@@ -74,9 +81,6 @@ export function Footer() {
               </a>
             </div>
           </div>
-
-
-
         </div>
       </div>
     </footer>
