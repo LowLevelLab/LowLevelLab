@@ -4,9 +4,15 @@ import { motion } from "motion/react";
 
 export default function Loading() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-black matrix-bg overflow-hidden relative">
+    <div
+      role="status"
+      aria-live="polite"
+      aria-busy="true"
+      className="min-h-screen flex items-center justify-center bg-black matrix-bg overflow-hidden relative"
+    >
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
       <div className="relative z-10 flex flex-col items-center gap-8">
+        <span className="sr-only">Loading</span>
         <motion.div
           animate={{ opacity: [0.3, 1, 0.3], scale: [0.98, 1, 0.98] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
