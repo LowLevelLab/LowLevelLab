@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Space_Mono, Space_Grotesk } from "next/font/google";
+import { Inter, Space_Grotesk, Space_Mono } from "next/font/google";
 import { LenisProvider } from "@/components/lenis-provider";
 import { Navbar } from "@/components/navbar";
 import "./globals.css";
@@ -31,13 +31,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${spaceMono.variable} ${spaceGrotesk.variable} dark antialiased`}>
-      <body className="bg-background text-foreground min-h-screen flex flex-col font-sans" suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${inter.variable} ${spaceMono.variable} ${spaceGrotesk.variable} dark antialiased`}
+    >
+      <body
+        className="bg-background text-foreground min-h-screen flex flex-col font-sans"
+        suppressHydrationWarning
+      >
         <LenisProvider>
           <Navbar />
-          <main className="flex-grow flex flex-col pt-16">
-            {children}
-          </main>
+          <main className="flex-grow flex flex-col pt-16">{children}</main>
         </LenisProvider>
       </body>
     </html>

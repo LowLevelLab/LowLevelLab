@@ -1,10 +1,7 @@
-import { fetchGithubAPI } from "@/lib/github";
 import { NextResponse } from "next/server";
+import { fetchGithubAPI } from "@/lib/github";
 
-export async function GET(
-  _request: Request,
-  { params }: { params: Promise<{ login: string }> }
-) {
+export async function GET(_request: Request, { params }: { params: Promise<{ login: string }> }) {
   const { login } = await params;
 
   try {
@@ -20,9 +17,6 @@ export async function GET(
       followers: user.followers,
     });
   } catch {
-    return NextResponse.json(
-      { error: "Failed to fetch user" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to fetch user" }, { status: 500 });
   }
 }

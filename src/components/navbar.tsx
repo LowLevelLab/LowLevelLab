@@ -1,10 +1,10 @@
 "use client";
 
-import Link from "next/link";
-import { Logo } from "./logo";
-import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
 import { animate } from "motion/react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import { Logo } from "./logo";
 
 const links = [
   { href: "/#team", label: "Team", id: "team" },
@@ -52,7 +52,11 @@ useEffect(() => {
   };
 }, [pathname]);
 
-  const handleScrollClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string, targetId: string) => {
+  const handleScrollClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+    targetId: string
+  ) => {
     if (pathname === "/" && href.startsWith("/#")) {
       e.preventDefault();
       const element = document.getElementById(targetId);
@@ -63,7 +67,9 @@ useEffect(() => {
         window.history.replaceState(null, "", href);
         setActiveSection(targetId);
 
-        window.dispatchEvent(new CustomEvent("btn-click-scroll", { detail: { sectionId: targetId } }));
+        window.dispatchEvent(
+          new CustomEvent("btn-click-scroll", { detail: { sectionId: targetId } })
+        );
 
         animate(startY, targetY, {
           type: "spring",
@@ -91,13 +97,12 @@ useEffect(() => {
                 key={href}
                 href={href}
                 onClick={(e) => handleScrollClick(e, href, id)}
-                className={`relative text-[15px] font-light tracking-wide transition-colors ${active ? "text-white" : "text-neutral-400 hover:text-white"
-                  }`}
+                className={`relative text-[15px] font-light tracking-wide transition-colors ${
+                  active ? "text-white" : "text-neutral-400 hover:text-white"
+                }`}
               >
                 {label}
-                {active && (
-                  <span className="absolute -bottom-1 left-0 right-0 h-px bg-white" />
-                )}
+                {active && <span className="absolute -bottom-1 left-0 right-0 h-px bg-white" />}
               </Link>
             );
           })}
@@ -113,9 +118,19 @@ useEffect(() => {
           </Link>
         </div>
 
-        <button onClick={() => setOpen(!open)} className="md:hidden text-white" aria-label="Menu">
+        <button
+          type="button"
+          onClick={() => setOpen(!open)}
+          className="md:hidden text-white"
+          aria-label="Menu"
+        >
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path d="M3 6h14M3 10h14M3 14h14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            <path
+              d="M3 6h14M3 10h14M3 14h14"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
           </svg>
         </button>
       </div>

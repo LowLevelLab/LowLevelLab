@@ -1,7 +1,8 @@
 "use client";
 
-import { motion, AnimatePresence, useAnimation } from "motion/react";
-import { useState, useCallback, useEffect } from "react";
+import { AnimatePresence, motion, useAnimation, type Variants } from "motion/react";
+import Image from "next/image";
+import { useCallback, useEffect, useState } from "react";
 
 interface Member {
   id: number;
@@ -30,7 +31,6 @@ export function TeamMarquee({ members }: { members: Member[] }) {
   useEffect(() => {
     controls.set("visible");
   }, [controls]);
-
 
   useEffect(() => {
     const handleScrollEvent = (e: Event) => {
@@ -79,22 +79,26 @@ export function TeamMarquee({ members }: { members: Member[] }) {
 
   if (!members || members.length === 0) return null;
 
-  const h2Variants = {
+  const h2Variants: Variants = {
     hidden: { opacity: 0, y: 15 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" as any } }
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
   };
 
-  const pVariants = {
+  const pVariants: Variants = {
     hidden: { opacity: 0, y: 12 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: 0.05, ease: "easeOut" as any } }
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, delay: 0.05, ease: "easeOut" },
+    },
   };
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     visible: { transition: { staggerChildren: 0.04 } },
     hidden: {},
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20, scale: 0.95 },
     visible: {
       opacity: 1,
@@ -102,7 +106,7 @@ export function TeamMarquee({ members }: { members: Member[] }) {
       scale: 1,
       transition: {
         duration: 0.4,
-        ease: [0.25, 1, 0.5, 1] as any,
+        ease: [0.25, 1, 0.5, 1],
       },
     },
   };
@@ -138,12 +142,12 @@ export function TeamMarquee({ members }: { members: Member[] }) {
           >
             {members.map((member) => {
               const roleMap: Record<string, string> = {
-                "magi8101": "Founder & Head",
+                magi8101: "Founder & Head",
                 "vattsa-11": "Co-founder",
-                "sharveswar007": "CTO",
+                sharveswar007: "CTO",
                 "hemagiri-rs": "Sr. Developer",
-                "mathan527": "Developer",
-                "ajith200215": "Creative",
+                mathan527: "Developer",
+                ajith200215: "Creative",
               };
               const role = roleMap[member.login.toLowerCase()] || "Developer";
 
@@ -156,9 +160,11 @@ export function TeamMarquee({ members }: { members: Member[] }) {
                   className="group flex flex-col items-center gap-3 p-5 border border-neutral-800 hover:border-neutral-500 bg-neutral-950 transition-all duration-300 cursor-pointer"
                 >
                   <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-neutral-700 group-hover:border-neutral-400 transition-colors">
-                    <img
+                    <Image
                       src={member.avatar_url}
                       alt={member.login}
+                      width={64}
+                      height={64}
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -177,7 +183,6 @@ export function TeamMarquee({ members }: { members: Member[] }) {
         </div>
       </section>
 
-
       <AnimatePresence>
         {selected && (
           <motion.div
@@ -188,20 +193,18 @@ export function TeamMarquee({ members }: { members: Member[] }) {
             className="fixed inset-0 z-[100] flex items-center justify-center p-4"
             onClick={close}
           >
-
             <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
-
 
             <motion.div
               initial={{ opacity: 0, scale: 0.92, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.92, y: 20 }}
-              transition={{ duration: 0.3, ease: [0.25, 1, 0.5, 1] as any }}
+              transition={{ duration: 0.3, ease: [0.25, 1, 0.5, 1] }}
               onClick={(e) => e.stopPropagation()}
               className="relative w-full max-w-sm bg-neutral-950 border border-neutral-800 p-8 z-10"
             >
-
               <button
+                type="button"
                 onClick={close}
                 className="absolute top-4 right-4 text-neutral-500 hover:text-white transition-colors"
                 aria-label="Close"
@@ -216,26 +219,23 @@ export function TeamMarquee({ members }: { members: Member[] }) {
                 </svg>
               </button>
 
-
               <div className="flex flex-col items-center text-center">
                 <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-neutral-700 mb-5">
-                  <img
+                  <Image
                     src={selected.avatar_url}
                     alt={selected.login}
+                    width={96}
+                    height={96}
                     className="w-full h-full object-cover"
                   />
                 </div>
-
 
                 <h3 className="text-xl font-bold text-white tracking-tight">
                   {loading ? selected.login : details?.name || selected.login}
                 </h3>
                 {details?.name && (
-                  <p className="text-[13px] text-neutral-500 mt-0.5">
-                    @{details.login}
-                  </p>
+                  <p className="text-[13px] text-neutral-500 mt-0.5">@{details.login}</p>
                 )}
-
 
                 <div className="mt-4 min-h-[2.5rem]">
                   {loading ? (
@@ -283,19 +283,13 @@ export function TeamMarquee({ members }: { members: Member[] }) {
                   </div>
                 )}
 
-
                 <a
                   href={selected.html_url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-6 inline-flex items-center gap-2.5 bg-white text-black px-6 py-2.5 text-[14px] font-medium hover:bg-neutral-200 transition-colors"
                 >
-                  <svg
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12Z" />
                   </svg>
                   View on GitHub

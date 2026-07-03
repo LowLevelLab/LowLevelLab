@@ -1,6 +1,6 @@
 export async function fetchGithubAPI(endpoint: string) {
   const token = process.env.PAT_1 || process.env.PAT_2 || process.env.PAT_3;
-  
+
   if (!token) {
     console.warn("No GitHub token found in env.");
   }
@@ -31,7 +31,9 @@ export async function getOrgInfo() {
 
 export async function getProjects() {
   try {
-    const repos = await fetchGithubAPI("/orgs/LowLevelLab/repos?type=public&sort=stargazers&per_page=10");
+    const repos = await fetchGithubAPI(
+      "/orgs/LowLevelLab/repos?type=public&sort=stargazers&per_page=10"
+    );
     return repos;
   } catch (e) {
     console.error(e);
